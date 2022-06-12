@@ -8,7 +8,7 @@
 Summary:	Akonadi Console
 Name:		ka5-%{kaname}
 Version:	22.04.2
-Release:	1
+Release:	2
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
@@ -64,6 +64,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xapian-core-devel
 BuildRequires:	xapian-core-devel
 BuildRequires:	xz
+ExclusiveArch:	i686 %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
