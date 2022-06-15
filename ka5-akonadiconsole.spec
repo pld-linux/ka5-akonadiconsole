@@ -64,7 +64,7 @@ BuildRequires:	tar >= 1:1.22
 BuildRequires:	xapian-core-devel
 BuildRequires:	xapian-core-devel
 BuildRequires:	xz
-ExclusiveArch:	i686 %{x8664}
+ExcludeArch:	x32
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
