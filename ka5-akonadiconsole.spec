@@ -1,18 +1,18 @@
 #
 # Conditional build:
 %bcond_with	tests		# build with tests
-%define		kdeappsver	23.04.3
+%define		kdeappsver	23.08.0
 %define		kframever	5.94.0
 %define		qtver		5.15.2
 %define		kaname		akonadiconsole
 Summary:	Akonadi Console
 Name:		ka5-%{kaname}
-Version:	23.04.3
-Release:	2
+Version:	23.08.0
+Release:	1
 License:	GPL v2+/LGPL v2.1+
 Group:		X11/Libraries
 Source0:	https://download.kde.org/stable/release-service/%{kdeappsver}/src/%{kaname}-%{version}.tar.xz
-# Source0-md5:	06e87d593182b02fc4a11c12d006484f
+# Source0-md5:	6e0f3faa4c5ec240ff42c1a53e35dab6
 URL:		http://www.kde.org/
 BuildRequires:	Qt5Core-devel >= 5.15.2
 BuildRequires:	Qt5DBus-devel >= 5.15.2
@@ -20,7 +20,7 @@ BuildRequires:	Qt5Gui-devel >= 5.15.2
 BuildRequires:	Qt5Sql-devel
 BuildRequires:	Qt5Test-devel
 BuildRequires:	Qt5Widgets-devel >= 5.15.2
-BuildRequires:	cmake >= 2.8.12
+BuildRequires:	cmake >= 3.20
 BuildRequires:	gettext-devel
 BuildRequires:	gpgme-qt5-devel
 BuildRequires:	ka5-akonadi-calendar-devel >= %{kdeappsver}
@@ -74,17 +74,15 @@ Akonadi console.
 %setup -q -n %{kaname}-%{version}
 
 %build
-install -d build
-cd build
-%cmake -G Ninja \
+%cmake -B build \
+	-G Ninja \
 	%{!?with_tests:-DBUILD_TESTING=OFF} \
 	-DHTML_INSTALL_DIR=%{_kdedocdir} \
-	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON \
-	..
-%ninja_build
+	-DKDE_INSTALL_USE_QT_SYS_PATHS=ON
+%ninja_build -C build
 
 %if %{with tests}
-ctest
+ctest --test-dir build
 %endif
 
 
